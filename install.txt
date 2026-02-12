@@ -1,0 +1,12 @@
+sudo apt update
+sudo apt install build-essential python3-dev
+
+
+pip install websocket-client
+
+
+
+
+sudo apt install redis-server
+sudo systemctl enable redis-server
+sudo systemctl start redis-server
