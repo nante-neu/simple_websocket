@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    CCTV Dashboard
+{% endblock %}
+
+
+    {% block extra_head %}{% endblock %}
+
+{% block inline_css %}
+<style>
+
+</style>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<div class="container">
+    <h1>CCTV - Dashboard</h1>
+
+<div id="status-box" style="padding: 20px; background: #eee;">
+    <h3>Live Logs:</h3>
+    <ul id="log-list"></ul>
+</div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+{% block inline_js %}
+
+<script>
+    // Automatically use WSS since you are on HTTPS
+    const socket = new WebSocket(`wss://${window.location.host}/ws/video/dashboard_user/`);
+
+    socket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        
+        // 1. Show in Browser Console (F12)
+        console.log("New Data Received:", data);
+        
+        // 2. Show in the Template (HTML)
+        const list = document.getElementById('log-list');   
+        const item = document.createElement('li');
+        item.innerHTML = `<strong>${data.device_id}:</strong> ${data.message}`;
+        list.appendChild(item);
+    };
+
+    socket.onopen = () => console.log("Dashboard is connected via WSS!");
+</script>
+{% endblock %}
+
+
+
