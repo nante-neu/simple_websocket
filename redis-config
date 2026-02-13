@@ -1,0 +1,7 @@
+sudo apt update
+sudo apt install redis-server
+sudo systemctl start redis-server
+
+
+Install the "Driver" (The Python Library)
+pip install channels-redis
